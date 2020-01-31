@@ -5,7 +5,7 @@ def configure(ctx):
 
 def build(ctx):
     DEPS = ['default']
-    THIS_LIB = 'apriltag'
+    THIS_LIB = 'apriltag3'
 
     # NOTE: Asan build has a known bug that sometimes causes it to take a VERY long
     #       time to compile when optimizations are turned on. AprilTag seems to trigger
@@ -19,4 +19,6 @@ def build(ctx):
     ctx.stlib(target = THIS_LIB,
               use    = DEPS,
               cflags = FLAGS,
-              source = ctx.path.ant_glob('*.c', excl = 'apriltag_pywrap.c'))
+              includes = '.',
+              export_includes = '..',
+              source = ctx.path.ant_glob('*.c common/*.c', excl = 'apriltag_pywrap.c'))
